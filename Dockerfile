@@ -37,8 +37,6 @@ RUN /opt/anaconda3/bin/conda install -y -c anaconda tensorflow-gpu
 # 安装keras
 RUN /opt/anaconda3/bin/conda install -y -c anaconda keras
 
-# 安装caffe
-RUN /opt/anaconda3/bin/conda install -y -c anaconda caffe-gpu
 
 # ==================================================================
 # clean
