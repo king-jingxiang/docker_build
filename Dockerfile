@@ -32,7 +32,7 @@ RUN cd /tmp && \
 RUN /opt/anaconda3/bin/conda install -y pytorch torchvision cuda100 -c pytorch
 
 # 安装tensorflow
-RUN /opt/anaconda3/bin/conda install -y -c anaconda tensorflow-gpu
+RUN pip install tensorflow-gpu
 
 # 安装keras
 RUN /opt/anaconda3/bin/conda install -y -c anaconda keras
