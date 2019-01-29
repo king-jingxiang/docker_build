@@ -22,24 +22,23 @@ RUN rm -rf /var/lib/apt/lists/* \
 # Anaconda - python3.6.5
 # ------------------------------------------------------------------
 RUN cd /tmp && \
-    wget https://repo.continuum.io/archive/Anaconda3-2018.12-Linux-x86_64.sh && \
-    bash ./Anaconda3-2018.12-Linux-x86_64.sh -b -p /opt/anaconda3 && \
+    wget https://repo.continuum.io/archive/Anaconda3-5.2.0-Linux-x86_64.sh && \
+    bash ./Anaconda3-5.2.0-Linux-x86_64.sh -b -p /opt/anaconda3 && \
     ln -s /opt/anaconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-# 安装pytorch 
+# 安装pytorch
 RUN /opt/anaconda3/bin/conda install -y pytorch torchvision cuda100 -c pytorch
 
-# 安装caffe
-RUN /opt/anaconda3/bin/conda install -y -c anaconda caffe-gpu
-
 # 安装tensorflow
-RUN /opt/anaconda3/bin/pip install tensorflow-gpu
+RUN /opt/anaconda3/bin/conda install -y -c anaconda tensorflow-gpu
 
 # 安装keras
 RUN /opt/anaconda3/bin/conda install -y -c anaconda keras
 
+# 安装caffe
+RUN /opt/anaconda3/bin/conda install -y -c anaconda caffe-gpu
 
 # ==================================================================
 # clean
@@ -47,3 +46,4 @@ RUN /opt/anaconda3/bin/conda install -y -c anaconda keras
 RUN apt-get clean && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*
+
