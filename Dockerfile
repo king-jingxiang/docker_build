@@ -28,7 +28,7 @@ RUN cd /tmp && \
     echo ". /opt/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-# 安装pytorch
+# 安装pytorch 
 RUN /opt/anaconda3/bin/conda install -y pytorch torchvision cuda100 -c pytorch
 
 # 安装tensorflow
