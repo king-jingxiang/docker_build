@@ -31,14 +31,15 @@ RUN cd /tmp && \
 # 安装pytorch 
 RUN /opt/anaconda3/bin/conda install -y pytorch torchvision cuda100 -c pytorch
 
+# 安装caffe
+RUN /opt/anaconda3/bin/conda install -y -c anaconda caffe-gpu
+
 # 安装tensorflow
-RUN pip install tensorflow-gpu
+RUN /opt/anaconda3/bin/pip install tensorflow-gpu
 
 # 安装keras
 RUN /opt/anaconda3/bin/conda install -y -c anaconda keras
 
-# 安装caffe
-RUN /opt/anaconda3/bin/conda install -y -c anaconda caffe-gpu
 
 # ==================================================================
 # clean
