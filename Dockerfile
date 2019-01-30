@@ -16,7 +16,9 @@ RUN rm -rf /var/lib/apt/lists/* \
         wget \
         curl \
         git \
-        vim
+        vim \
+        unrar \
+        unzip
 
 # ==================================================================
 # Anaconda - python3.6.5
@@ -37,6 +39,8 @@ RUN /opt/anaconda3/bin/conda install -y -c anaconda tensorflow-gpu
 # 安装keras
 RUN /opt/anaconda3/bin/conda install -y -c anaconda keras
 
+# 安装基础组件
+RUN /opt/anaconda3/bin/conda install -y pymysql
 
 # ==================================================================
 # clean
