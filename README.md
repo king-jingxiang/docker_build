@@ -1,2 +1,1 @@
-# docker_build
-dockerfile auto build
+# py36-pytorch+tensorflow-cu100
