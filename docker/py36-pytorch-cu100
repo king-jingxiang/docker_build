@@ -20,6 +20,7 @@ RUN rm -rf /var/lib/apt/lists/* \
         unrar \
         unzip
 
+
 # ==================================================================
 # Anaconda - python3.6.5
 # ------------------------------------------------------------------
@@ -30,17 +31,11 @@ RUN cd /tmp && \
     echo ". /opt/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-# 安装pytorch
-RUN /opt/anaconda3/bin/conda install -y pytorch torchvision cuda100 -c pytorch
-
-# 安装tensorflow
-RUN /opt/anaconda3/bin/conda install -y -c anaconda tensorflow-gpu
-
-# 安装keras
-RUN /opt/anaconda3/bin/conda install -y -c anaconda keras
-
 # 安装基础组件
 RUN /opt/anaconda3/bin/conda install -y pymysql
+
+# 安装pytorch
+RUN /opt/anaconda3/bin/conda install -y pytorch torchvision cuda100 -c pytorch
 
 # ==================================================================
 # clean
