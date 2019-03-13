@@ -20,8 +20,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         tensorflow-gpu \
         tensorboard \
         && \
-    mkdir -p /userhome/tensorboard/logs \
-    && \
+    mkdir -p /userhome/tensorboard/logs
 
 EXPOSE 8888 6006
 
