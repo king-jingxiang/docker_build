@@ -21,6 +21,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         openssh-server \
         cmake \
         wget \
+        curl \
         git \
         vim \
         iputils-ping \
