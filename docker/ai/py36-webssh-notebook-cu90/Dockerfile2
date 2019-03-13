@@ -1,0 +1,16 @@
+FROM registry.cn-beijing.aliyuncs.com/ruanxingbaozi/python:py36-webssh-cu90
+
+RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
+    PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
+    GIT_CLONE="git clone --depth 10" && \
+
+# ==================================================================
+# jupyter
+# ------------------------------------------------------------------
+
+    $PIP_INSTALL \
+        jupyter \
+        && \
+EXPOSE 8888
+
+CMD ["/usr/bin/supervisord"]
