@@ -17,6 +17,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         build-essential \
         apt-utils \
         ca-certificates \
+        openssh-client \
+        openssh-server \
         cmake \
         wget \
         git \
@@ -65,9 +67,23 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     $PIP_INSTALL \
        tornado==4.5.1 \
        && \
-    $GIT_CLONE https://github.com/liftoff/GateOne.git ~/GateOne --recursive && \
-    cd ~/GateOne && python setup.py install \
+    $GIT_CLONE https://github.com/liftoff/GateOne.git ~/GateOne && \
+    python setup.py install \
     && \
+
+# ==================================================================
+# ssh 
+# https://10.10.8.5:23443?ssh=ssh://root@127.0.0.1
+# ------------------------------------------------------------------
+ssh-keygen -t rsa -b 4096 -P '' -f ~/.ssh/id_rsa >/dev/null 2>&1 && \
+cat ~/.ssh/id_rsa.pub >~/.ssh/authorized_keys && \
+mkdir -p /var/lib/gateone/users/ANONYMOUS/.ssh && \
+echo id_rsa > /var/lib/gateone/users/ANONYMOUS/.ssh/.default_ids && \
+cp ~/.ssh/id* /var/lib/gateone/users/ANONYMOUS/.ssh/ && \
+sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+echo "StrictHostKeyChecking=no" > ~/.ssh/config && \
+service ssh start && \
+service gateone start && \
 
 # ==================================================================
 # config & cleanup
@@ -79,6 +95,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*
 
 
-RUN service gateone start
-
 EXPOSE 443
+
+CMD ["cat"]
