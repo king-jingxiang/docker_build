@@ -64,14 +64,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# jupyter
-# ------------------------------------------------------------------
-
-    $PIP_INSTALL \
-        jupyter \
-        && \
-
-# ==================================================================
 # gotaone webssh
 # ------------------------------------------------------------------
     $PIP_INSTALL \
@@ -86,10 +78,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # https://10.10.8.5:23443?ssh=ssh://root@127.0.0.1
 # ------------------------------------------------------------------
 ssh-keygen -t rsa -b 4096 -P '' -f ~/.ssh/id_rsa >/dev/null 2>&1 && \
+echo "root:P@ssw0rd" | chpasswd
 cat ~/.ssh/id_rsa.pub >~/.ssh/authorized_keys && \
-mkdir -p /var/lib/gateone/users/ANONYMOUS/.ssh && \
-echo id_rsa > /var/lib/gateone/users/ANONYMOUS/.ssh/.default_ids && \
-cp ~/.ssh/id* /var/lib/gateone/users/ANONYMOUS/.ssh/ && \
 sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
 echo "StrictHostKeyChecking=no" > ~/.ssh/config && \
 mkdir -p /var/log/supervisor && \
@@ -103,10 +93,8 @@ mkdir -p /var/log/supervisor && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*
 
-# todo 设置WORKDIR
-
 COPY supervisord.conf /etc/supervisord.conf
 
-EXPOSE 22 443 8888
+EXPOSE 22 443
 
 CMD ["/usr/bin/supervisord"]
