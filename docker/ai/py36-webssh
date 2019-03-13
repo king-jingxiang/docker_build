@@ -65,7 +65,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     $PIP_INSTALL \
        tornado==4.5.1 \
        && \
-    $GIT_CLONE git@github.com:liftoff/GateOne.git ~/GateOne --recursive && \
+    $GIT_CLONE https://github.com/liftoff/GateOne.git ~/GateOne --recursive && \
     python setup.py install \
     && \
 
