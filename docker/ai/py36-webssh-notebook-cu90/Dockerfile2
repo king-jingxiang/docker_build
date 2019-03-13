@@ -11,6 +11,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     $PIP_INSTALL \
         jupyter
 
+COPY supervisord.conf /etc/supervisord.conf
 
 EXPOSE 8888
 

@@ -22,6 +22,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
     mkdir -p /userhome/tensorboard/logs
 
+COPY supervisord.conf /etc/supervisord.conf
+
 EXPOSE 8888 6006
 
 CMD ["/usr/bin/supervisord"]
