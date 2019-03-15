@@ -2,6 +2,7 @@ FROM registry.cn-beijing.aliyuncs.com/ruanxingbaozi/eclipse-che:stack-base-ubunt
 
 LABEL che:server:8888:ref=notebook che:server:8888:protocol=http che:server:6006:ref=tensorboard che:server:6006:protocol=http
 
+RUN sudo apt-get install bzip2 -y
 # ==================================================================
 # Anaconda - python3.6.5
 # ------------------------------------------------------------------
