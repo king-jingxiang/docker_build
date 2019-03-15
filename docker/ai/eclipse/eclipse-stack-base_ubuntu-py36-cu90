@@ -2,54 +2,18 @@ FROM registry.cn-beijing.aliyuncs.com/ruanxingbaozi/eclipse-che:stack-base-ubunt
 
 LABEL che:server:8888:ref=notebook che:server:8888:protocol=http che:server:6006:ref=tensorboard che:server:6006:protocol=http
 
-RUN APT_INSTALL="sudo apt-get install -y --no-install-recommends" && \
-    PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
-    GIT_CLONE="git clone --depth 10" && \
-
-    sudo rm -rf /var/lib/apt/lists/* \
-           /etc/apt/sources.list.d/cuda.list \
-           /etc/apt/sources.list.d/nvidia-ml.list && \
-
-    sudo apt-get update && \
-
 # ==================================================================
-# python
+# Anaconda - python3.6.5
 # ------------------------------------------------------------------
-
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        software-properties-common \
-        && \
-    add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        python3.6 \
-        python3.6-dev \
-        python3-distutils-extra \
-        && \
-    wget -O ~/get-pip.py \
-        https://bootstrap.pypa.io/get-pip.py && \
-    python3.6 ~/get-pip.py && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python3 && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python && \
-    $PIP_INSTALL \
-        setuptools \
-        && \
-    $PIP_INSTALL \
-        numpy \
-        scipy \
-        pandas \
-        cloudpickle \
-        scikit-learn \
-        matplotlib \
-        Cython \
-        futures tornado cssmin slimit psutil \
-        && \
+RUN wget --quiet https://repo.continuum.io/archive/Anaconda3-5.2.0-Linux-x86_64.sh -O ~/anaconda.sh && \
+    /bin/bash ~/anaconda.sh -b -p ~/anaconda3 && \
+    echo "export PATH=~/anaconda3/bin:$PATH" >> ~/.bashrc
 
 # ==================================================================
 # jupyter
 # ------------------------------------------------------------------
 
-    $PIP_INSTALL \
+RUN pip install \
         jupyter \
         && \
 
@@ -57,9 +21,6 @@ RUN APT_INSTALL="sudo apt-get install -y --no-install-recommends" && \
 # config & cleanup
 # ------------------------------------------------------------------
 
-    sudo ldconfig && \
-    sudo apt-get clean && \
-    sudo apt-get autoremove && \
-    sudo rm -rf /var/lib/apt/lists/* /tmp/* ~/*
+    sudo rm -rf ~/anaconda.sh
 
 EXPOSE 8888 6006
