@@ -1,0 +1,6 @@
+FROM registry.cn-beijing.aliyuncs.com/ruanxingbaozi/python:py36-webssh-cu90
+
+RUN ln -s /usr/bin/supervisord /etc/init.d/supervisord && \
+    cd /etc/init.d && update-rc.d /etc/init.d/supervisord defaults 90
+
+COPY supervisord.conf /etc/supervisord.conf
