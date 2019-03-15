@@ -2,15 +2,15 @@ FROM registry.cn-beijing.aliyuncs.com/ruanxingbaozi/eclipse-che:stack-base-ubunt
 
 LABEL che:server:8888:ref=notebook che:server:8888:protocol=http che:server:6006:ref=tensorboard che:server:6006:protocol=http
 
-RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
+RUN APT_INSTALL="sudo apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
 
-    rm -rf /var/lib/apt/lists/* \
+    sudo rm -rf /var/lib/apt/lists/* \
            /etc/apt/sources.list.d/cuda.list \
            /etc/apt/sources.list.d/nvidia-ml.list && \
 
-    apt-get update && \
+    sudo apt-get update && \
 
 # ==================================================================
 # python
@@ -57,9 +57,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # config & cleanup
 # ------------------------------------------------------------------
 
-    ldconfig && \
-    apt-get clean && \
-    apt-get autoremove && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/*
+    sudo ldconfig && \
+    sudo apt-get clean && \
+    sudo apt-get autoremove && \
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* ~/*
 
 EXPOSE 8888 6006
