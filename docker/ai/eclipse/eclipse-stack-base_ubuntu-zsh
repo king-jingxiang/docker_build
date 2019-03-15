@@ -47,7 +47,7 @@ RUN apt-get update && \
     sudo update-ca-certificates -f && \
     sudo sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure && \
     git clone --depth=1 git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
-	&& cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+	&& cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
 
