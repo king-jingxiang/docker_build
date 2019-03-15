@@ -41,7 +41,7 @@ RUN apt-get update && \
     add-apt-repository ppa:openjdk-r/ppa && \
     apt-get update && \
     sudo apt-get install git subversion -y && \
-    sudo apt-get install openjdk-8-jdk-headless=8u171-b11-0ubuntu0.16.04.1 openjdk-8-source=8u171-b11-0ubuntu0.16.04.1 -y && \
+    sudo apt-get install openjdk-8-jdk-headless openjdk-8-source -y && \
     sudo update-ca-certificates -f && \
     sudo sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure && \
     git clone --depth=1 git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
