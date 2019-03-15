@@ -24,6 +24,7 @@ RUN apt-get update && \
     procps \
     wget \
     unzip \
+    bzip2 \
     mc \
     ca-certificates \
     curl \
@@ -47,6 +48,7 @@ RUN apt-get update && \
     git clone --depth=1 git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
 	&& cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc && \
     apt-get -y clean && \
+    sudo apt-get autoremove && \
     rm -rf /var/lib/apt/lists/*
 
 ENV LANG en_GB.UTF-8

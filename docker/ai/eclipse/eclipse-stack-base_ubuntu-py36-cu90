@@ -2,9 +2,6 @@ FROM registry.cn-beijing.aliyuncs.com/ruanxingbaozi/eclipse-che:stack-base-ubunt
 
 LABEL che:server:8888:ref=notebook che:server:8888:protocol=http che:server:6006:ref=tensorboard che:server:6006:protocol=http
 
-RUN sudo apt-get update && \
-    sudo apt-get install bzip2
-
 # ==================================================================
 # Anaconda - python3.6.5
 # ------------------------------------------------------------------
@@ -16,7 +13,7 @@ RUN wget --quiet https://repo.continuum.io/archive/Anaconda3-5.2.0-Linux-x86_64.
 # jupyter
 # ------------------------------------------------------------------
 
-RUN pip install \
+RUN /home/user/anaconda3/bin/pip install \
         jupyter \
         && \
 
@@ -24,9 +21,6 @@ RUN pip install \
 # config & cleanup
 # ------------------------------------------------------------------
 
-    sudo rm -rf ~/anaconda.sh && \
-    sudo apt-get clean && \
-    sudo apt-get autoremove && \
-    sudo rm -rf /var/lib/apt/lists/* /tmp/* ~/*
+    sudo rm -rf ~/anaconda.sh
 
 EXPOSE 8888 6006
