@@ -1,0 +1,49 @@
+# ==================================================================
+# module list
+# ------------------------------------------------------------------
+# python        3.7    (conda)
+# pytorch       1.2    (conda)
+# ==================================================================
+FROM nvcr.io/nvidia/pytorch:19.03-py3
+RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
+    rm -rf /var/lib/apt/lists/* \
+           /etc/apt/sources.list.d/cuda.list \
+           /etc/apt/sources.list.d/nvidia-ml.list && \
+    sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' \
+        /etc/apt/sources.list && \
+    apt-get update && \
+# ==================================================================
+# tools
+# ------------------------------------------------------------------
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        cmake \
+        zip \
+        unzip \
+        vim \
+        wget \
+        curl \
+        git \
+        aria2 \
+        apt-transport-https \
+        openssh-client \
+        openssh-server \
+        tmux \
+        net-tools
+# ==================================================================
+# python & pytorch
+# ------------------------------------------------------------------
+RUN rm -rf /opt/conda
+
+RUN curl -so ~/anaconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    chmod +x ~/anaconda.sh && \
+    ~/anaconda.sh -b -p /opt/conda && \
+    rm ~/anaconda.sh
+ENV PATH /opt/conda/bin:$PATH
+RUN conda update --all
+RUN conda install -y \
+        pytorch \
+        torchvision
+RUN conda clean -ya &&\
+    apt-get clean && \
+    apt-get autoremove && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/*
