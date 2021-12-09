@@ -1,1 +1,1 @@
-FROM hxing/mmdetection
+FROM hxing/mmdetection:v1
