@@ -1,0 +1,1 @@
+FROM intelanalytics/ipex-llm-serving-cpu:2.1.0
