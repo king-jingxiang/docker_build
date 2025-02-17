@@ -1,0 +1,1 @@
+FROM infiniflow/ragflow:v0.16.0-slim
